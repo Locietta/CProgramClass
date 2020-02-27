@@ -46,23 +46,26 @@
  * may still be flagged as errors.
  */
 
-//#include <stdbool.h>
-#ifdef THINK_C
-   typedef int bool;
-#else
-#  ifdef TRUE
-#    ifndef bool
-#      define bool int
-#    endif
-#  else
-#    ifdef bool
-#      define FALSE 0
-#      define TRUE 1
-#    else
-      typedef enum {FALSE, TRUE} bool;
-#    endif
-#  endif
-#endif
+#include <stdbool.h>
+#define TRUE true
+#define FALSE false
+
+// #ifdef THINK_C
+//    typedef int bool;
+// #else
+// #  ifdef TRUE
+// #    ifndef bool
+// #      define bool int
+// #    endif
+// #  else
+// #    ifdef bool
+// #      define FALSE 0
+// #      define TRUE 1
+// #    else
+//       typedef enum {FALSE, TRUE} bool;
+// #    endif
+// #  endif
+// #endif
 
 /*
  * Type: string
