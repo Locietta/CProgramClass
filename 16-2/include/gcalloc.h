@@ -20,6 +20,7 @@
 
 #ifndef _gcalloc_h
 #define _gcalloc_h
+#include <stddef.h>
 
 /*
  * Macro: ProtectVariable

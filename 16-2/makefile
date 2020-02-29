@@ -1,4 +1,4 @@
-#simple makefile for exercise
+#simple makefile for practice
 vpath %.h ./include
 vpath %.c ./lib
 

@@ -154,7 +154,7 @@ void FreeBlock(void *ptr);
  * target type.
  */
 
-#define New(type) ((type) GetBlock(sizeof *((type) NULL)))
+#define New(ptrtype) ((ptrtype) GetBlock(sizeof *((ptrtype) NULL)))
 
 /*
  * Macro: NewArray
