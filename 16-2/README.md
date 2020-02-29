@@ -7,3 +7,5 @@
 测试数据存放在testdata文件里
 
 使用makefile组织编译，测试终端是Git Bash和PowerShell(PowerShell不能make clean)
+
+测试结果图片在TestPic文件夹里
