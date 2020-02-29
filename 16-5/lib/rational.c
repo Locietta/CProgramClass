@@ -5,10 +5,9 @@
  * This file implements the rational.h interface.
  */
 
+#include "rational.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "rational.h"
 
 /* Private function prototypes */
 
@@ -76,10 +75,6 @@ void PrintRational(rationalT r) {
 }
 
 /* Private functions */
-
-inline static int abs(int a) {
-    return ((a > 0) ? a : -a);
-}
 
 static int gcd(int a, int b) {
     return (b ? gcd(b, a % b) : abs(a));
