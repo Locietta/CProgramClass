@@ -17,6 +17,7 @@ clean: clean-custom
 	${RM} $(OBJ) $(BIN)
 $(BIN): $(OBJ)
 	$(CC) $(OBJ) -o $(BIN) $(LIBS)
+	
 %.o : %.c
 	$(CC) -c $^ -o $@ $(CFLAGS)
 main.o: main.c

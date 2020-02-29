@@ -7,7 +7,10 @@
 #include "strlib.h"
 
 #define MAXBOOKS 1000
-#define MAXTITLE 30
+#define MAXTITLE 31
+#define MAXNAME 21
+#define MAXSUB 21
+#define MAXPUB 41
 
 typedef struct {
     string title;
@@ -16,56 +19,85 @@ typedef struct {
     string subHead[5];
     string publisher;
     string year;
-    bool isCirculating;
+    int isCirculating;
 } * bookT;
 
 typedef struct libraryDB_info *libraryDB;
 struct libraryDB_info {
     bookT book[MAXBOOKS];
     int nBooks;
-    void (*search)(libraryDB libdata, string key);
-    void (*read)(libraryDB libdata);
+    void (*search)(libraryDB this, string key);
+    void (*add)(libraryDB this);
+    void (*destory)(libraryDB this);
 };
 
-void libInit(libraryDB ptr);
-void readBook(libraryDB libdata);
-void searchBySubject(libraryDB libdata, string subject);
+void Test(libraryDB libdata);
 
-char *s_gets(char *st, int n);
+void libInit(libraryDB ptr);
+void addBook(libraryDB this);
+void searchBySubject(libraryDB this, string subject);
+void destoryLib(libraryDB this);
 
 int main(void) {
+    libraryDB this = New(libraryDB);
+    libInit(this);
 
+    Test(this);
+    this->destory(this);
     return 0;
 }
 
 void libInit(libraryDB ptr) {
-    ptr = New(libraryDB);
     ptr->nBooks = 0;
     ptr->search = searchBySubject;
-    ptr->read = readBook;
+    ptr->add = addBook;
+    ptr->destory = destoryLib;
 }
 
-void readBook(libraryDB libdata) {
-    libdata->book[libdata->nBooks] = New(bookT);
-    printf("Title:");
-    s_gets(libdata->book[libdata->nBooks]->title, MAXTITLE);
-    printf("Author(up to 5, one line with one name):");
+void addBook(libraryDB this) {
+    this->book[this->nBooks] = New(bookT);
+    printf("Title:\n");
+    this->book[this->nBooks]->title = GetLine();
+    printf("Author(up to 5, one line with one name):\n");
     for (int i = 0; i < 5; ++i) {
-        
+        this->book[this->nBooks]->author[i] = GetLine();
+        if (*this->book[this->nBooks]->author[i] == '\0') {
+            break;
+        }
     }
-        
+    printf("The Library of Congress Catalog Number:\n");
+    this->book[this->nBooks]->cataNumber = GetLine();
+    printf("Subject(up to 5, one line with one subject):\n");
+    for (int i = 0; i < 5; ++i) {
+        this->book[this->nBooks]->subHead[i] = GetLine();
+        if (*this->book[this->nBooks]->subHead[i] == '\0') {
+            break;
+        }
+    }
+    printf("Publisher:\n");
+    this->book[this->nBooks]->publisher = GetLine();
+    printf("Year:\n");
+    this->book[this->nBooks]->year = GetLine();
+    printf("Circulating situation(1 for yes, 0 for no):\n");
+    scanf("%d", &this->book[this->nBooks]->isCirculating);
+    while (getchar() != '\n') //eatline
+        continue;
+    this->nBooks++;
 }
 
-void searchBySubject(libraryDB libdata, string subject) {
-    int booknum = libdata->nBooks;
+void searchBySubject(libraryDB this, string subject) {
+    int bookNum = this->nBooks;
     bool notfound = TRUE;
-    for (int i = 0; i < booknum; ++i) {
+    for (int i = 0; i < bookNum; ++i) {
         for (int j = 0; j < 5; ++j) {
-            if (libdata->book[i]->subHead[j] == subject) {
-                notfound = FALSE;
-                printf("Title:%s\tFirst author:%s\tLC catalog number:%s\n",
-                       libdata->book[i]->title, libdata->book[i]->author[0], libdata->book[i]->cataNumber);
-                break;
+            if (this->book[i]->subHead[j]) {  // shouldn't be NULL
+                if (StringEqual(this->book[i]->subHead[j], subject)) {
+                    notfound = FALSE;
+                    printf("Title:%s\t\tFirst author:%s\t\tLibrary of Congress Catalog Number:%s\n",
+                           this->book[i]->title, this->book[i]->author[0],
+                           this->book[i]->cataNumber);
+                    break;
+                }
             }
         }
     }
@@ -74,18 +106,29 @@ void searchBySubject(libraryDB libdata, string subject) {
     }
 }
 
-char *s_gets(char *st, int n) {
-    register char *ret_val;
-    register char *find;
-
-    ret_val = fgets(st, n, stdin);
-    if (ret_val) {
-        find = strchr(st, '\n'); //replace '\n' with '\0'
-        if (find)
-            *find = '\0';
-        else
-            while (getchar() != '\n') //eatline
-                continue;
+void destoryLib(libraryDB this) {
+    int bookNum = this->nBooks;
+    for (int i = 0; i < bookNum; ++i) {
+        FreeBlock(this->book[i]->title);
+        for (int j = 0; j < 5; ++j) {
+            FreeBlock(this->book[i]->author[j]);
+        }
+        FreeBlock(this->book[i]->cataNumber);
+        FreeBlock(this->book[i]->publisher);
+        FreeBlock(this->book[i]->year);
+        for (int j = 0; j < 5; ++j) {
+            FreeBlock(this->book[i]->subHead[i]);
+        }
+        FreeBlock(this->book[i]);
     }
-    return ret_val;
+    FreeBlock(this);
+}
+
+void Test(libraryDB libdata) {
+    for (int i = 0; i < 3; ++i) {
+        libdata->add(libdata);
+    }
+    string buffer = NULL;
+    libdata->search(libdata, buffer = GetLine());
+    FreeBlock(buffer);
 }
