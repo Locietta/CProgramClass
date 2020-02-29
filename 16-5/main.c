@@ -13,7 +13,7 @@ int main(void)
         PrintRational(AddRational(r1, r2));
         puts("\nMultiplation result:");
         PrintRational(MultiplyRational(r1, r2));
-        puts("\nDo you to try again?(y/n)");
+        puts("\nDo you want to try again?(y/n)");
         char c;
         do {
             c = getchar();
