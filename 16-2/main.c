@@ -90,7 +90,7 @@ void searchBySubject(libraryDB this, string subject) {
     bool notfound = TRUE;
     for (int i = 0; i < bookNum; ++i) {
         for (int j = 0; j < 5; ++j) {
-            if (this->book[i]->subHead[j]) {  // shouldn't be NULL
+            if (this->book[i]->subHead[j]) { // shouldn't be NULL
                 if (StringEqual(this->book[i]->subHead[j], subject)) {
                     notfound = FALSE;
                     printf("Title:%s\t\tFirst author:%s\t\tLibrary of Congress Catalog Number:%s\n",

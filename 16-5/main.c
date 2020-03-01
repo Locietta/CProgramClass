@@ -4,8 +4,7 @@
 
 #include "rational.h"
 
-int main(void)
-{
+int main(void) {
     while (1) {
         puts("Please type two fractions with the format num/den...");
         rationalT r1 = GetRational(), r2 = GetRational();
