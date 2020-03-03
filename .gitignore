@@ -53,3 +53,4 @@ dkms.conf
 
 # vscode workspcefile
 *.code-workspace
+.vscode
