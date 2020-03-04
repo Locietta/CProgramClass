@@ -1,6 +1,4 @@
-#include <ctype.h>
 #include <stdio.h>
-#include <string.h>
 
 #include "genlib.h"
 #include "simpio.h"
@@ -93,7 +91,7 @@ void searchBySubject(libraryDB this, string subject) {
             if (this->book[i]->subHead[j]) { // shouldn't be NULL
                 if (StringEqual(this->book[i]->subHead[j], subject)) {
                     notfound = FALSE;
-                    printf("Title:%s\t\tFirst author:%s\t\tLibrary of Congress Catalog Number:%s\n",
+                    printf("Title: %s\t\tFirst author: %s\t\tLibrary of Congress Catalog Number: %s\n",
                            this->book[i]->title, this->book[i]->author[0],
                            this->book[i]->cataNumber);
                     break;
