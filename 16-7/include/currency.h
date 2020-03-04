@@ -24,12 +24,15 @@ struct currencyDB_info {
     currencyT currency[MAX_CURRENCY_SORTS];
     int nCurrency;
     int (*add)(currencyDB this, FILE *stream);
+    int (*search)(currencyDB this, char *currencyName);
     void (*destory)(currencyDB this);
 };
 
 currencyDB dbInit(void);
 
 int addCurrency(currencyDB this, FILE *stream);
+
+int searchCurrency(currencyDB this, char *currencyName);
 
 void dbDestory(currencyDB this);
 

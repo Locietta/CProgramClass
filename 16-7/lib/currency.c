@@ -15,6 +15,7 @@ currencyDB dbInit(void) {
     currencyDB newDB = (currencyDB) malloc(sizeof(struct currencyDB_info));
     newDB->nCurrency = 0;
     newDB->add = addCurrency;
+    newDB->search = searchCurrency;
     newDB->destory = dbDestory;
     return newDB;
 }
@@ -43,6 +44,16 @@ int addCurrency(currencyDB this, FILE *stream) {
         this->nCurrency++;
     }
     return ret;
+}
+
+int searchCurrency(currencyDB this, char *currencyName) {
+    int currencyNum = this->nCurrency;
+    for (int i = 0; i < currencyNum; ++i) {
+        if (!strcmp(this->currency[i]->name, currencyName)) {
+            return i;
+        }
+    }
+    return -1; //not found
 }
 
 void dbDestory(currencyDB this) {
