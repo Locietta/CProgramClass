@@ -17,8 +17,8 @@ clean: clean-custom
 	${RM} $(OBJ) $(BIN)
 $(BIN): $(OBJ)
 	$(CC) $(OBJ) -o $(BIN) $(LIBS)
-	
+main.o: main.c currency.h
+	$(CC) -c main.c -o $@ $(CFLAGS)
 %.o : %.c
 	$(CC) -c $^ -o $@ $(CFLAGS)
-main.o: main.c
 currency.o: currency.c

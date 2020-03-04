@@ -26,14 +26,14 @@ int addCurrency(currencyDB this, FILE *stream) {
 
     int ret = fscanf(stream, "%s %lf", newName, &newExRate);
     if (ret != EOF) {
-        for (int i = 0; newName != '\0'; ++i) { // ignore alphabet case
+        for (int i = 0; newName[i] != '\0'; ++i) { // ignore alphabet case
             newName[i] = tolower(newName[i]);
         }
 
         for (int i = 0; i < this->nCurrency; ++i) {
             if (!strcmp(newName, this->currency[i]->name)) {
                 this->currency[i]->exchangeRate = newExRate;
-                return;
+                return ret;
             }
         }
 
