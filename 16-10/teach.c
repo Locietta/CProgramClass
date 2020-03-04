@@ -7,26 +7,28 @@
  * the data file are described in Chapter 16.
  */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "genlib.h"
-#include "strlib.h"
 #include "simpio.h"
+#include "strlib.h"
 
 /*
  * Constants
  * ---------
  * MaxQuestions          -- Maximum question number
+ * MaxLinesPerDesciption -- Maximum number of lines per description
  * MaxLinesPerQuestion   -- Maximum number of lines per question
  * MaxAnswersPerQuestion -- Maximum answers per question
  * EndMarker             -- String marking end of question text
  */
 
-#define MaxQuestions          100
-#define MaxLinesPerQuestion    20
-#define MaxAnswersPerQuestion  10
+#define MaxQuestions 100
+#define MaxLinesPerDesciption 20
+#define MaxLinesPerQuestion 20
+#define MaxAnswersPerQuestion 10
 #define EndMarker "-----"
 
 /* Data structures */
@@ -54,10 +56,11 @@ typedef struct {
  */
 
 typedef struct {
-    string qtext[MaxLinesPerQuestion+1];
+    string qdescription[MaxLinesPerDesciption + 1];
+    string qtext[MaxLinesPerQuestion + 1];
     answerT answers[MaxAnswersPerQuestion];
     int nAnswers;
-} *questionT;
+} * questionT;
 
 /*
  * Type: courseDB
@@ -69,28 +72,29 @@ typedef struct {
 
 typedef struct {
     string title;
-    questionT questions[MaxQuestions+1];
-} *courseDB;
+    questionT questions[MaxQuestions + 1];
+} * courseDB;
 
 /* Private function declarations */
 
 static courseDB ReadDataBase(void);
 static bool ReadOneQuestion(FILE *infile, courseDB course);
+static void ReadQuestionDescription(FILE *infile, questionT q);
 static void ReadQuestionText(FILE *infile, questionT q);
 static void ReadAnswers(FILE *infile, questionT q);
 static FILE *OpenUserFile(string prompt, string mode);
 static void ProcessCourse(courseDB course);
-static void AskQuestion(questionT q);
+static void AskQuestion(questionT q, int asktimes);
 static int FindAnswer(string ans, questionT q);
 
 /* Main program */
 
-main()
-{
+int main(void) {
     courseDB course;
 
     course = ReadDataBase();
     ProcessCourse(course);
+    return 0;
 }
 
 /* Section 1 -- Functions to read the data file */
@@ -105,15 +109,14 @@ main()
  * structure" in Chapter 16.
  */
 
-static courseDB ReadDataBase(void)
-{
+static courseDB ReadDataBase(void) {
     FILE *infile;
     courseDB course;
 
     infile = OpenUserFile("Enter name of course: ", "r");
     course = New(courseDB);
     course->title = ReadLine(infile);
-    while (ReadOneQuestion(infile, course));
+    while (ReadOneQuestion(infile, course)) continue;
     fclose(infile);
     return (course);
 }
@@ -129,8 +132,7 @@ static courseDB ReadDataBase(void)
  * Thus, the "Usage" line above reads the entire data file.
  */
 
-static bool ReadOneQuestion(FILE *infile, courseDB course)
-{
+static bool ReadOneQuestion(FILE *infile, courseDB course) {
     questionT question;
     string line;
     int qnum;
@@ -142,10 +144,38 @@ static bool ReadOneQuestion(FILE *infile, courseDB course)
         Error("Question number %d out of range", qnum);
     }
     question = New(questionT);
+    ReadQuestionDescription(infile, question);
     ReadQuestionText(infile, question);
     ReadAnswers(infile, question);
     course->questions[qnum] = question;
     return (TRUE);
+}
+
+/*
+ * Function: ReadQuestionDescription
+ * Usage: ReadQuestionDescription(infile, question);
+ * ------------------------------------------
+ * This function reads the description of the question into the
+ * question data structure, which must have been allocated
+ * by the caller.  The end of the question description is signaled
+ * by a line matching the string EndMarker.
+ */
+
+static void ReadQuestionDescription(FILE *infile, questionT q) {
+    string line;
+    int nlines;
+
+    nlines = 0;
+    while (TRUE) {
+        line = ReadLine(infile);
+        if (StringEqual(line, EndMarker)) break;
+        if (nlines == MaxLinesPerDesciption) {
+            Error("Too many lines");
+        }
+        q->qdescription[nlines] = line;
+        nlines++;
+    }
+    q->qdescription[nlines] = NULL;
 }
 
 /*
@@ -158,8 +188,7 @@ static bool ReadOneQuestion(FILE *infile, courseDB course)
  * by a line matching the string EndMarker.
  */
 
-static void ReadQuestionText(FILE *infile, questionT q)
-{
+static void ReadQuestionText(FILE *infile, questionT q) {
     string line;
     int nlines;
 
@@ -187,18 +216,16 @@ static void ReadQuestionText(FILE *infile, questionT q)
  * signaled by a blank line or the end of the file.
  */
 
-static void ReadAnswers(FILE *infile, questionT q)
-{
+static void ReadAnswers(FILE *infile, questionT q) {
     string line, ans;
     int len, cpos, nextq, nAnswers;
 
     nAnswers = 0;
-    while ((line = ReadLine(infile)) != NULL
-           && (len = StringLength(line)) != 0) {
+    while ((line = ReadLine(infile)) != NULL && (len = StringLength(line)) != 0) {
         cpos = FindChar(':', line, 0);
         if (cpos == -1) Error("Illegal answer format");
         ans = SubString(line, 0, cpos - 1);
-        nextq = StringToInteger(SubString(line, cpos+1, len-1));
+        nextq = StringToInteger(SubString(line, cpos + 1, len - 1));
         q->answers[nAnswers].ans = ConvertToUpperCase(ans);
         q->answers[nAnswers].nextq = nextq;
         nAnswers++;
@@ -219,8 +246,7 @@ static void ReadAnswers(FILE *infile, questionT q)
  * another file name.
  */
 
-static FILE *OpenUserFile(string prompt, string mode)
-{
+static FILE *OpenUserFile(string prompt, string mode) {
     string filename;
     FILE *result;
 
@@ -255,24 +281,25 @@ static FILE *OpenUserFile(string prompt, string mode)
  * the answers.
  */
 
-static void ProcessCourse(courseDB course)
-{
+static void ProcessCourse(courseDB course) {
     questionT q;
     int qnum;
     string ans;
-    int index;
+    int asktimes = 0, index;
 
     printf("%s\n", course->title);
     qnum = 1;
     while (qnum != 0) {
         q = course->questions[qnum];
-        AskQuestion(q);
+        AskQuestion(q, asktimes);
         ans = ConvertToUpperCase(GetLine());
         index = FindAnswer(ans, q);
         if (index == -1) {
             printf("I don't understand that.\n");
+            asktimes++;
         } else {
             qnum = q->answers[index].nextq;
+            asktimes = 0;
         }
     }
 }
@@ -286,11 +313,13 @@ static void ProcessCourse(courseDB course)
  * each of the lines that comprise the question text.
  */
 
-static void AskQuestion(questionT q)
-{
-    int i;
-
-    for (i = 0; q->qtext[i] != NULL; i++) {
+static void AskQuestion(questionT q, int asktimes) {
+    if (!asktimes) {
+        for (int i = 0; q->qdescription[i] != NULL; i++) {
+            printf("%s\n", q->qdescription[i]);
+        }
+    }
+    for (int i = 0; q->qtext[i] != NULL; i++) {
         printf("%s\n", q->qtext[i]);
     }
 }
@@ -306,11 +335,8 @@ static void AskQuestion(questionT q)
  * through the array.
  */
 
-static int FindAnswer(string ans, questionT q)
-{
-    int i;
-
-    for (i = 0; i < q->nAnswers; i++) {
+static int FindAnswer(string ans, questionT q) {
+    for (int i = 0; i < q->nAnswers; i++) {
         if (StringEqual(ans, q->answers[i].ans)) return (i);
     }
     return (-1);

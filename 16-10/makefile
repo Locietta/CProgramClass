@@ -3,7 +3,7 @@ vpath %.h ./include
 vpath %.c ./lib
 
 CC       = gcc -Wall -O2
-SRC      = main.c $(wildcard ./lib/*.c)
+SRC      = teach.c $(wildcard ./lib/*.c)
 OBJ      = $(patsubst %.c, %.o, $(SRC))
 LIBS     = -static-libgcc -g3
 INCS     = -I"./include"
@@ -20,7 +20,7 @@ $(BIN): $(OBJ)
 	
 %.o : %.c
 	$(CC) -c $^ -o $@ $(CFLAGS)
-main.o: main.c
+teach.o: teach.c
 exceptio.o: exceptio.c
 genlib.o: genlib.c
 random.o: random.c
