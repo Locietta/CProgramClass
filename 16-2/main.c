@@ -33,25 +33,25 @@ struct libraryDB_info {
 
 void Test(libraryDB libdata);
 
-void libInit(libraryDB ptr);
+libraryDB libInit(void);
 void addBook(libraryDB this);
 void searchBySubject(libraryDB this, string subject);
-void destoryLib(libraryDB this);
+void libDestory(libraryDB this);
 
 int main(void) {
-    libraryDB this = New(libraryDB);
-    libInit(this);
-
-    Test(this);
-    this->destory(this);
+    libraryDB libdata = libInit();
+    Test(libdata);
+    libdata->destory(libdata);
     return 0;
 }
 
-void libInit(libraryDB ptr) {
-    ptr->nBooks = 0;
-    ptr->search = searchBySubject;
-    ptr->add = addBook;
-    ptr->destory = destoryLib;
+libraryDB libInit(void) {
+    libraryDB newDB = New(libraryDB);
+    newDB->nBooks = 0;
+    newDB->search = searchBySubject;
+    newDB->add = addBook;
+    newDB->destory = libDestory;
+    return newDB;
 }
 
 void addBook(libraryDB this) {
@@ -106,7 +106,7 @@ void searchBySubject(libraryDB this, string subject) {
     }
 }
 
-void destoryLib(libraryDB this) {
+void libDestory(libraryDB this) {
     int bookNum = this->nBooks;
     for (int i = 0; i < bookNum; ++i) {
         FreeBlock(this->book[i]->title);
