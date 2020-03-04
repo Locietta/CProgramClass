@@ -48,6 +48,9 @@ int addCurrency(currencyDB this, FILE *stream) {
 
 int searchCurrency(currencyDB this, char *currencyName) {
     int currencyNum = this->nCurrency;
+    for (int i = 0; currencyName[i] != '\0'; ++i) { // ignore alphabet case
+        currencyName[i] = tolower(currencyName[i]);
+    }
     for (int i = 0; i < currencyNum; ++i) {
         if (!strcmp(this->currency[i]->name, currencyName)) {
             return i;

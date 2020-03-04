@@ -30,7 +30,7 @@ void Test(char *filename) {
     }
 
     puts("---------------------------------------------");
-    puts("Currency now in database: ");
+    printf("%d currency now in database: \n", currencyLib->nCurrency);
     for (int i = 0; i < currencyLib->nCurrency; ++i) {
         printf("%s\t%g\n", currencyLib->currency[i]->name,
                currencyLib->currency[i]->exchangeRate);
