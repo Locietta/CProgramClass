@@ -23,13 +23,13 @@ typedef struct currencyDB_info *currencyDB;
 struct currencyDB_info {
     currencyT currency[MAX_CURRENCY_SORTS];
     int nCurrency;
-    void (*add)(currencyDB this, FILE *stream);
+    int (*add)(currencyDB this, FILE *stream);
     void (*destory)(currencyDB this);
 };
 
 currencyDB dbInit(void);
 
-void addCurrency(currencyDB this, FILE *stream);
+int addCurrency(currencyDB this, FILE *stream);
 
 void dbDestory(currencyDB this);
 
