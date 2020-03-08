@@ -17,7 +17,9 @@ static int addCurrency(currencyDB this, FILE *stream);
 static int searchCurrency(currencyDB this, char *currencyName);
 static void dbDestory(currencyDB this);
 
-/* Library function implementation */
+/* Function implementation */
+
+/* Public functions */
 
 currencyDB dbInit(void) {
     currencyDB newDB = (currencyDB) malloc(sizeof(struct currencyDB_info));
@@ -27,6 +29,8 @@ currencyDB dbInit(void) {
     newDB->destory = dbDestory;
     return newDB;
 }
+
+/* Private functions */
 
 static int addCurrency(currencyDB this, FILE *stream) {
     char newName[MAX_CURRENCY_NAME] = "";

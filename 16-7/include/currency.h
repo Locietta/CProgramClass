@@ -23,6 +23,7 @@ typedef struct currencyDB_info *currencyDB;
 struct currencyDB_info {
     currencyT currency[MAX_CURRENCY_SORTS];
     int nCurrency;
+    /* Private function prototypes */
     int (*add)(currencyDB this, FILE *stream);
     int (*search)(currencyDB this, char *currencyName);
     void (*destory)(currencyDB this);
