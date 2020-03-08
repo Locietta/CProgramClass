@@ -26,3 +26,4 @@ genlib.o: genlib.c
 random.o: random.c
 simpio.o: simpio.c
 strlib.o: strlib.c
+library.o: library.c
