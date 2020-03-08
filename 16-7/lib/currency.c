@@ -11,6 +11,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Private function prototypes */
+
+static int addCurrency(currencyDB this, FILE *stream);
+static int searchCurrency(currencyDB this, char *currencyName);
+static void dbDestory(currencyDB this);
+
+/* Library function implementation */
+
 currencyDB dbInit(void) {
     currencyDB newDB = (currencyDB) malloc(sizeof(struct currencyDB_info));
     newDB->nCurrency = 0;
@@ -20,7 +28,7 @@ currencyDB dbInit(void) {
     return newDB;
 }
 
-int addCurrency(currencyDB this, FILE *stream) {
+static int addCurrency(currencyDB this, FILE *stream) {
     char newName[MAX_CURRENCY_NAME] = "";
     double newExRate;
 
@@ -46,7 +54,7 @@ int addCurrency(currencyDB this, FILE *stream) {
     return ret;
 }
 
-int searchCurrency(currencyDB this, char *currencyName) {
+static int searchCurrency(currencyDB this, char *currencyName) {
     int currencyNum = this->nCurrency;
     for (int i = 0; currencyName[i] != '\0'; ++i) { // ignore alphabet case
         currencyName[i] = tolower(currencyName[i]);
@@ -59,7 +67,7 @@ int searchCurrency(currencyDB this, char *currencyName) {
     return -1; //not found
 }
 
-void dbDestory(currencyDB this) {
+static void dbDestory(currencyDB this) {
     int currencyNum = this->nCurrency;
     for (int i = 0; i < currencyNum; ++i) {
         free(this->currency[i]);

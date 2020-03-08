@@ -28,12 +28,8 @@ struct currencyDB_info {
     void (*destory)(currencyDB this);
 };
 
+/* Public functions prototypes */
+
 currencyDB dbInit(void);
-
-int addCurrency(currencyDB this, FILE *stream);
-
-int searchCurrency(currencyDB this, char *currencyName);
-
-void dbDestory(currencyDB this);
 
 #endif // (!defined CURRENCY_H)
