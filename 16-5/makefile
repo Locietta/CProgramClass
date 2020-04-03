@@ -20,5 +20,5 @@ $(BIN): $(OBJ)
 	
 %.o : %.c
 	$(CC) -c $^ -o $@ $(CFLAGS)
-main.o: main.c
-rational.o: rational.c
+main.o: 
+rational.o: 
