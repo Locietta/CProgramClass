@@ -24,7 +24,7 @@
 // static void freeNode(Node *Node);
 static int NodeSwap(Node *node1, Node *node2);
 static void nodeInverse(Node *node);
-
+// static void nodePrint(Node *node);
 /* Public functions prototypes */
 
 static int listIsempty(List this);
@@ -42,6 +42,7 @@ static void listSort(List this, int (*isBigger)(void *data1, void *data2), int i
 static List listMerge(List this, List addOn);
 static List listInverse(List this);
 static void listFor_each_safe(List this, void (*todo)(Node *));
+// static void listDisplay(List this);
 
 static void listDestory(List this);
 /* Function implementations */
@@ -272,10 +273,15 @@ static void listFor_each_safe(List this, void (*todo)(Node *)) {
     }
 }
 
+// static void listDisplay(List this) {
+
+// }
+
 static void listDestory(List this) {
     while (!this->isempty(this)) {
         listDelete(this, this->head);
     }
+    free(this);
 }
 
 /* Private Functions */
@@ -314,3 +320,7 @@ static int NodeSwap(Node *node1, Node *node2) {
     }
     return 0;
 }
+
+// static void nodePrint(Node *node) {
+//     printf("%d ", *((int *) node->data));
+// }
