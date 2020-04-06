@@ -4,9 +4,9 @@ vpath %.h ./include ./include/textbookHeader
 vpath %.c ./src ./src/textbookSrc
 
 CC       = gcc -Wall -O2
-SRC      = test.c $(wildcard ./src/*.c) # $(wildcard ./src/textbookSrc/*.c)
+SRC      = main.c $(wildcard ./src/*.c) 
 OBJ      = $(patsubst %.c, %.o, $(SRC))
-INCS     = -I"./include" # -I"./include/textbookHeader"
+INCS     = -I"./include" 
 BIN      = test.exe
 LDFLAGS  = -static-libgcc -g3
 CFLAGS   = $(INCS) -g3
@@ -17,15 +17,9 @@ all: $(BIN)
 $(BIN): $(OBJ)
 	$(CC) $(OBJ) -o $(BIN) $(LDFLAGS)
 
-# exceptio.o:
-# genlib.o:
-# random.o:
-# simpio.o: 
-# strlib.o:
-
 linkedList.o: 
-# main.o: 
-test.o:
+main.o: 
+# test.o:
 
 clean:
 	${RM} $(OBJ) $(BIN)
