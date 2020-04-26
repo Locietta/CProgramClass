@@ -53,8 +53,10 @@
  */
 
 void InitGraphics(void);
-
 void InitConsole(void);
+
+void OpenConsole(void);
+void CloseConsole(void);
 
 /*
  * Function: MovePen

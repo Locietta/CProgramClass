@@ -46,8 +46,8 @@
  * DefaultFont     -- Font that serves as the "Default" font
  */
 
-#define DesiredWidth       10.0
-#define DesiredHeight      7.0
+#define DesiredWidth       15.0
+#define DesiredHeight      9.0
 #define DefaultSize       12
 #define MaxTitle          75
 #define MaxFontName       50
@@ -790,6 +790,21 @@ void InitConsole(void)
     freopen("CONIN$", "r+t", stdin);
     freopen("CONOUT$", "w+t", stdout);
 }
+
+void OpenConsole(void)
+{
+    AllocConsole();
+    freopen("CONIN$", "r+t", stdin);
+    freopen("CONOUT$", "w+t", stdout);
+}
+
+void CloseConsole(void)
+{
+	fclose(stdin);
+	fclose(stdout);
+	FreeConsole();
+}
+
 
 void repaint()
 {

@@ -1,6 +1,7 @@
 #include "conio.h"
 #include "genlib.h"
 #include "graphics.h"
+#include "extgraph.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,6 +49,7 @@ void DrawGrid(double x, double y, double width, double height,
 
 DWORD WINAPI ThreadProc(LPVOID lpParameter) {
     InitConsole();
+    return 0;
 }
 
 void Main() {
@@ -64,12 +66,12 @@ void Main() {
     DrawHouse(cx - HouseWidth / 2.0,
               cy - (HouseHeight + AtticHeight) / 2.0);
 
-    InitConsole(); 
+    OpenConsole(); 
     scanf("%lf%lf", &tx, &ty);
-    FreeConsole();
+    CloseConsole();
 
     MovePen(tx, ty); //MovePen(3.4, 2.0);
-    DrawTextString("å¥½");
+    DrawTextString("ºÃ£¡");
 }
 
 /*
