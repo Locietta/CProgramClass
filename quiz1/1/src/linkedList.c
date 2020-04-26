@@ -23,7 +23,7 @@
 
 // static void freeNode(Node *Node);
 static int NodeSwap(Node *node1, Node *node2);
-static void nodeInverse(Node *node);
+static void nodeInverse(Node *node, int ignorable);
 // static void nodePrint(Node *node);
 /* Public functions prototypes */
 
@@ -290,7 +290,7 @@ static void listDestory(List this) {
 
 /* Private Functions */
 
-static void nodeInverse(Node *node) {
+static void nodeInverse(Node *node, int signal /* ignored */) {
     Node *temp = node->prev;
     node->prev = node->next;
     node->next = temp;
@@ -323,7 +323,7 @@ static int NodeSwap(Node *node1, Node *node2) {
 
             free(buffer);
         } else {
-            void *buffer = malloc(node1.size);
+            void *buffer = malloc(node1->size);
             memmove(buffer, node1->data, node1->size);
             memmove(node1->data, node2->data, node1->size);
             memmove(node2->data, buffer, node1->size);
