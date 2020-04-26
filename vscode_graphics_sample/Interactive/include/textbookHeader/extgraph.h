@@ -489,9 +489,6 @@ void SetWindowSize(double width, double height);
 double GetXResolution(void);
 double GetYResolution(void);
  
-void startTimer(int id,int timeinterval);
-void cancelTimer(int id);
-
 /*pixels to inches*/
 double ScaleXInches(int x);
 double ScaleYInches(int y);
