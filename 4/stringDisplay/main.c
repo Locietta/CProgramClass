@@ -20,7 +20,7 @@
 #include <wingdi.h>
 #include <winuser.h>
 
-#define TIMER_BLINK500 1
+#define TIMER_BLINK350 1
 #define TIMER_BLINK1000 2
 
 static double textx, texty;
@@ -38,7 +38,7 @@ void CharEventProcess(char c);
 void TimerEventProcess(int timerID);
 
 void Main() {
-    SetWindowTitle("(没完成的)输入框");
+    SetWindowTitle("输入框");
     SetWindowSize(winWidth, winHeight);
     InitGraphics();
     registerKeyboardEvent(KeyboardEventProcess);
@@ -50,27 +50,49 @@ void Main() {
     SetFont("Arial");
     SetPointSize(100);
 
+    startTimer(TIMER_BLINK350, 350);
     textx = 0;
     texty = winHeight / 2 - 0.3;
 }
 
-/*每当产生键盘消息，都要执行*/
 void KeyboardEventProcess(int key, int event) {
 
     switch (event) {
     case KEY_DOWN:
         switch (key) {
-        case VK_LEFT: /*左移键*/
+        case VK_LEFT: 
             if (crusor > 0) {
+                bool erasemode = GetEraseMode();
+                SetEraseMode(true);
+                DrawCrusor(crusor);
+                SetEraseMode(erasemode);
                 crusor--;
             }
             break;
-        case VK_RIGHT: /*右移键*/
+        case VK_RIGHT: 
             if (crusor < textlen) {
+                bool erasemode = GetEraseMode();
+                SetEraseMode(true);
+                DrawCrusor(crusor);
+                SetEraseMode(erasemode);
                 crusor++;
             }
             break;
+        case VK_DELETE: 
+            if (crusor < textlen) {
+                eraseAll();
+                for (int i = crusor; i < textlen - 1; ++i) {
+                    buf[i] = buf[i + 1];
+                }
+                textlen--;
+                buf[textlen] = '\0';
+                MovePen(textx, texty); 
+                SetEraseMode(FALSE);   
+                DrawTextString(buf);   
+            }
+            break;
         }
+
         break;
     case KEY_UP:
         break;
@@ -79,7 +101,7 @@ void KeyboardEventProcess(int key, int event) {
 
 void CharEventProcess(char c) {
     switch (c) {
-    case '\r': /* 注意：回车在这里返回的字符是'\r'，不是'\n'*/
+    case '\r': /* Windows : [Enter]=='\r''\n' */
         OpenConsole();
         printf(buf);
         // ExitGraphics();
@@ -88,34 +110,36 @@ void CharEventProcess(char c) {
         ExitGraphics();
         break;
     case '\b': /* BackSpace */
-        eraseAll();
-        
-        textlen--;
-        buf[textlen] = '\0';
-        MovePen(textx, texty); /*设置文本显示起始坐标*/
-        SetEraseMode(FALSE);   /*取消擦除模式*/
-        DrawTextString(buf);   /*显示当前字符串*/
-        break;
-    case 0x2e: /* Delete */
-
+        if (crusor) {
+            eraseAll();
+            for (int i = crusor - 1; i < textlen - 1; ++i) {
+                buf[i] = buf[i + 1];
+            }
+            textlen--;
+            crusor--;
+            buf[textlen] = '\0';
+            MovePen(textx, texty); 
+            SetEraseMode(FALSE);   
+            DrawTextString(buf);   
+        }
         break;
     default:
         eraseAll();
-        buf[textlen++] = c; /*将当前字符加入到整个字符缓冲区中*/
+        buf[textlen++] = c; 
+        crusor++;
         buf[textlen] = '\0';
-        MovePen(textx, texty); /*设置文本显示起始坐标*/
-        SetEraseMode(FALSE);   /*取消擦除模式*/
-        DrawTextString(buf);   /*显示当前字符串*/
+        MovePen(textx, texty); 
+        SetEraseMode(FALSE);   
+        DrawTextString(buf);   
         break;
     }
 }
 
-/*timerID为定时器号*/
 void TimerEventProcess(int timerID) {
     bool erasemode;
 
     switch (timerID) {
-    case TIMER_BLINK500:
+    case TIMER_BLINK350:
         erasemode = GetEraseMode();
         SetEraseMode(isDisplay);
         DrawCrusor(crusor);
