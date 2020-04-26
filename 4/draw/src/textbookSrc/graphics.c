@@ -1952,7 +1952,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     return messages.wParam;;
 }
 
-void registerKeyboardEvent(KeyboardEventCallback callback)
+void registerKeyboardEvent(KeyboardEventKeyboardEventCallback callback)
 {
 	g_keyboard = callback;
 }
