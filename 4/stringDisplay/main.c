@@ -125,9 +125,11 @@ void CharEventProcess(char c) {
         break;
     default:
         eraseAll();
-        buf[textlen++] = c; 
-        crusor++;
-        buf[textlen] = '\0';
+        for (int i = textlen; i > crusor; --i) {
+            buf[i] = buf[i-1]; 
+        }
+        buf[crusor++] = c;
+        buf[++textlen] = '\0';
         MovePen(textx, texty); 
         SetEraseMode(FALSE);   
         DrawTextString(buf);   
