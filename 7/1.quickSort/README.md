@@ -8,7 +8,7 @@
 
 排序函数的代码 ./include/qsort.h ./src/qsort.c （quicksort( )函数的实现）
 
-## 算法伪代码
+## 快速排序 伪代码
 
 ```pesudo
 algorithm quicksort(A, lo, hi)
