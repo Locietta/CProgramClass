@@ -27,6 +27,7 @@
         b = temp;     \
     } while (0)
 
+// 快速排序三数
 #define sort3fast(a, b, c)  \
     if (b < a) {            \
         if (c < a) {        \
@@ -219,7 +220,7 @@ static void *sort_thr(void *arg) {
     return NULL;
 }
 
-static void partition2(int *left0, int *right0, int **l1, int **r1, int **l2,
+static void partition_multi(int *left0, int *right0, int **l1, int **r1, int **l2,
                        int **r2) {
 
     int *left = left0 + 1;
@@ -261,7 +262,7 @@ static void qusort_multi(int *left, int *right) {
 
     while (right - left >= 50) {
         int *l, *r;
-        partition2(left, right, &l, &r, &left, &right);
+        partition_multi(left, right, &l, &r, &left, &right);
 
         if (right - left > 100000 && n_threads < max_threads) {
             pthread_t thread;

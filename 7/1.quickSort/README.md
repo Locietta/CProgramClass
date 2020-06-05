@@ -10,40 +10,40 @@
 
 ## 快速排序 伪代码
 
-```pesudo
+```pseudo
 algorithm quicksort(A, lo, hi)
-        if lo < hi then p := partition(A, lo, hi)
+        if lo < hi then p ← partition(A, lo, hi)
         quicksort(A, lo, p – 1)
         quicksort(A, p + 1, hi)
 ```
 
 分区函数方案一：
 
-```pesudo
+```pseudo
 algorithm partition(A, lo, hi)
-        pivot := A[hi]
-        i := lo
-        for j := lo to hi – 1 do
+        pivot ← A[hi]
+        i ← lo
+        for j ← lo to hi – 1 do
         if A[j] ≤ pivot then
             swap A[i] with A[j]
-            i := i + 1
+            i ← i + 1
         swap A[i] with A[hi]
         return i
 ```
 
 分区函数方案二：
 
-```pesudo
+```pseudo
 algorithm partition(A, lo, hi)
-    pivot := A[lo + (hi - lo) / 2]
-    i := lo - 1
-    j := hi + 1
+    pivot ← A[lo + (hi - lo) / 2]
+    i ← lo - 1
+    j ← hi + 1
     loop forever
         do
-            i := i + 1
+            i ← i + 1
         while A[i] < pivot
         do
-            j := j - 1
+            j ← j - 1
         while A[j] > pivot
         if i >= j then
             return j
@@ -52,7 +52,7 @@ algorithm partition(A, lo, hi)
 
 ## 我干了什么↓
 
-1. 随机产生100,000个整数写入到random_int文件中，将排序结果和时间写到文件里
+1. 随机产生100,000个整数写入到random_int文件中，将排序结果和时间写到result文件里
 
 --------------------------------------------------
 
@@ -83,16 +83,16 @@ algorithm partition(A, lo, hi)
 
 2. 更大规模数据的排序
 
+rand()随机产生整数存入全局数组中，利用test()来检查是否升序，用interval()测量时间
+
 --------------------------------------------------
 
 我觉得文件玄学(**我不信多线程速度倒数**)，所以写了个main1.c试试在命令行下运行的结果\
  *主要是对文件I/O没什么信心，而且文件太多也不太好*
 
-rand()随机产生整数存入全局数组中，利用test()来检查是否升序，用interval()测量时间
-
 ### 结果
 
-结果制表如下，原始数据截图在textPic下
+结果制表如下，原始数据截图在testPic下
 
 | 数据规模(百万) | 多线程插入快排 | 插入快排 |  纯快排  |  纯插排  |
 | :------------: | :------------: | :------: | :------: | :------: |
@@ -111,8 +111,7 @@ rand()随机产生整数存入全局数组中，利用test()来检查是否升�
 * 500百万以上的数据规模，不能再直接创建全局数组变量来获得了：
 编译会报错，就算编译出来了也无法运行
 
-可以看到将最后小块排序改用插排确实对性能有所提升，而且多线程能够极大
-提升排序效率，这与直觉相符
+可以看到将最后小块排序改用插排确实对性能有所提升，而且多线程能够极大提升排序效率，这与直觉相符
 
 --------------------------------------------------
 

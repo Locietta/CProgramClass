@@ -9,6 +9,7 @@
  */
 
 #include "runtimeQuery.h"
+
 #define _FORCED_SYS_TIME_H
 
 #if (defined(_WIN32) || defined(_WIN64)) && !defined(_FORCED_SYS_TIME_H)

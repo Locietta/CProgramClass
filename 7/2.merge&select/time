@@ -1,0 +1,247 @@
+mergeSort 10 int costs 0.000002s
+mergeSort 10 int costs 0.000002s
+mergeSort 10 int costs 0.000002s
+selecSort 10 int costs 0.000000s
+selecSort 10 int costs 0.000000s
+selecSort 10 int costs 0.000000s
+mergeSort 100 int costs 0.000010s
+mergeSort 100 int costs 0.000013s
+mergeSort 100 int costs 0.000008s
+selecSort 100 int costs 0.000010s
+selecSort 100 int costs 0.000010s
+selecSort 100 int costs 0.000010s
+mergeSort 50 int costs 0.000003s
+mergeSort 50 int costs 0.000003s
+mergeSort 50 int costs 0.000003s
+selecSort 50 int costs 0.000003s
+selecSort 50 int costs 0.000002s
+selecSort 50 int costs 0.000002s
+mergeSort 500 int costs 0.000024s
+mergeSort 500 int costs 0.000031s
+mergeSort 500 int costs 0.000037s
+mergeSort 500 int costs 0.000024s
+mergeSort 500 int costs 0.000035s
+mergeSort 500 int costs 0.000024s
+selecSort 500 int costs 0.000254s
+selecSort 500 int costs 0.000247s
+selecSort 500 int costs 0.000251s
+selecSort 500 int costs 0.000275s
+selecSort 500 int costs 0.000251s
+mergeSort 1000 int costs 0.000066s
+mergeSort 1000 int costs 0.000051s
+mergeSort 1000 int costs 0.000124s
+mergeSort 1000 int costs 0.000050s
+mergeSort 1000 int costs 0.000050s
+selecSort 1000 int costs 0.001240s
+selecSort 1000 int costs 0.001004s
+selecSort 1000 int costs 0.001014s
+selecSort 1000 int costs 0.000996s
+selecSort 1000 int costs 0.001096s
+mergeSort 10000 int costs 0.000644s
+mergeSort 10000 int costs 0.000682s
+mergeSort 10000 int costs 0.000657s
+mergeSort 10000 int costs 0.000703s
+mergeSort 10000 int costs 0.000783s
+selecSort 10000 int costs 0.100407s
+selecSort 10000 int costs 0.104596s
+selecSort 10000 int costs 0.101707s
+selecSort 10000 int costs 0.100520s
+selecSort 10000 int costs 0.101159s
+mergeSort 100000 int costs 0.007692s
+mergeSort 100000 int costs 0.007996s
+mergeSort 100000 int costs 0.010055s
+mergeSort 100000 int costs 0.007710s
+mergeSort 100000 int costs 0.007709s
+selecSort 100000 int costs 10.105099s
+selecSort 100000 int costs 10.144709s
+selecSort 100000 int costs 10.117022s
+mergeSort 30 int costs 0.000002s
+mergeSort 30 int costs 0.000002s
+mergeSort 30 int costs 0.000002s
+selecSort 30 int costs 0.000001s
+selecSort 30 int costs 0.000001s
+selecSort 30 int costs 0.000001s
+mergeSort 70 int costs 0.000004s
+mergeSort 70 int costs 0.000003s
+mergeSort 70 int costs 0.000005s
+selecSort 70 int costs 0.000007s
+selecSort 70 int costs 0.000005s
+selecSort 70 int costs 0.000006s
+mergeSort 40 int costs 0.000003s
+mergeSort 40 int costs 0.000003s
+mergeSort 40 int costs 0.000003s
+selecSort 40 int costs 0.000002s
+selecSort 40 int costs 0.000002s
+selecSort 40 int costs 0.000002s
+selecSort 60 int costs 0.000003s
+selecSort 60 int costs 0.000004s
+selecSort 60 int costs 0.000004s
+mergeSort 60 int costs 0.000003s
+mergeSort 60 int costs 0.000003s
+mergeSort 60 int costs 0.000004s
+mergeSort 55 int costs 0.000004s
+mergeSort 55 int costs 0.000003s
+mergeSort 55 int costs 0.000004s
+selecSort 55 int costs 0.000003s
+selecSort 55 int costs 0.000003s
+selecSort 55 int costs 0.000003s
+mergeSort 60 int costs 0.000004s
+mergeSort 60 int costs 0.000004s
+mergeSort 60 int costs 0.000004s
+mergeSort 60 int costs 0.000003s
+mergeSort 60 int costs 0.000005s
+mergeSort 60 int costs 0.000003s
+mergeSort 60 int costs 0.000003s
+mergeSort 60 int costs 0.000004s
+mergeSort 60 int costs 0.000003s
+selecSort 60 int costs 0.000004s
+selecSort 60 int costs 0.000004s
+selecSort 60 int costs 0.000003s
+selecSort 60 int costs 0.000004s
+selecSort 60 int costs 0.000004s
+selecSort 60 int costs 0.000004s
+selecSort 60 int costs 0.000004s
+selecSort 60 int costs 0.000004s
+selecSort 60 int costs 0.000004s
+modified mergeSort with CUTOFF 32 sort 100 int costs 0.000005s
+modified mergeSort with CUTOFF 32 sort 100 int costs 0.000004s
+modified mergeSort with CUTOFF 32 sort 100 int costs 0.000005s
+modified mergeSort with CUTOFF 32 sort 1000 int costs 0.000055s
+modified mergeSort with CUTOFF 32 sort 1000 int costs 0.000063s
+modified mergeSort with CUTOFF 32 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 32 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 32 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 32 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 32 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 32 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 32 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 32 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 60 sort 100 int costs 0.000006s
+modified mergeSort with CUTOFF 60 sort 100 int costs 0.000004s
+modified mergeSort with CUTOFF 60 sort 100 int costs 0.000004s
+modified mergeSort with CUTOFF 60 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 60 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 60 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 60 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 60 sort 500 int costs 0.000025s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000055s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000068s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000057s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000057s
+modified mergeSort with CUTOFF 60 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 50 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 50 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 50 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 50 sort 1000 int costs 0.000058s
+modified mergeSort with CUTOFF 50 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 50 sort 1000 int costs 0.000053s
+modified mergeSort with CUTOFF 50 sort 10000 int costs 0.000600s
+modified mergeSort with CUTOFF 50 sort 10000 int costs 0.000592s
+modified mergeSort with CUTOFF 50 sort 10000 int costs 0.000780s
+modified mergeSort with CUTOFF 50 sort 10000 int costs 0.000603s
+modified mergeSort with CUTOFF 50 sort 10000 int costs 0.000757s
+modified mergeSort with CUTOFF 50 sort 10000 int costs 0.000591s
+modified mergeSort with CUTOFF 32 sort 10000 int costs 0.000591s
+modified mergeSort with CUTOFF 32 sort 10000 int costs 0.000592s
+modified mergeSort with CUTOFF 32 sort 10000 int costs 0.000728s
+modified mergeSort with CUTOFF 32 sort 10000 int costs 0.000638s
+modified mergeSort with CUTOFF 32 sort 10000 int costs 0.000591s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000603s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000797s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000616s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000616s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000592s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000589s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000593s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.001188s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000593s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000611s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000766s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000612s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000596s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000663s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000593s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000679s
+modified mergeSort with CUTOFF 64 sort 10000 int costs 0.000600s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000593s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000596s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000598s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000653s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000594s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000656s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000610s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000592s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000614s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000595s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000941s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000601s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000604s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000610s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000819s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000685s
+modified mergeSort with CUTOFF 33 sort 10000 int costs 0.000592s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.007682s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.007526s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.007532s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.007635s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.007842s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.007680s
+modified mergeSort with CUTOFF 33 sort 10 int costs 0.000001s
+modified mergeSort with CUTOFF 33 sort 10 int costs 0.000001s
+modified mergeSort with CUTOFF 33 sort 10 int costs 0.000001s
+modified mergeSort with CUTOFF 33 sort 100 int costs 0.000004s
+modified mergeSort with CUTOFF 33 sort 100 int costs 0.000004s
+modified mergeSort with CUTOFF 33 sort 100 int costs 0.000004s
+modified mergeSort with CUTOFF 33 sort 100 int costs 0.000005s
+modified mergeSort with CUTOFF 33 sort 100 int costs 0.000005s
+modified mergeSort with CUTOFF 33 sort 50 int costs 0.000003s
+modified mergeSort with CUTOFF 33 sort 50 int costs 0.000003s
+modified mergeSort with CUTOFF 33 sort 50 int costs 0.000003s
+modified mergeSort with CUTOFF 33 sort 50 int costs 0.000002s
+modified mergeSort with CUTOFF 33 sort 50 int costs 0.000002s
+modified mergeSort with CUTOFF 33 sort 60 int costs 0.000003s
+modified mergeSort with CUTOFF 33 sort 60 int costs 0.000003s
+modified mergeSort with CUTOFF 33 sort 60 int costs 0.000003s
+modified mergeSort with CUTOFF 33 sort 60 int costs 0.000003s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.008059s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007567s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.014824s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007617s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.008497s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007562s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007770s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007580s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007679s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007625s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007554s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007564s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007517s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007667s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007544s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.008973s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007757s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007645s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007548s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007924s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007611s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007524s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007623s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007530s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.006982s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.008015s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.008935s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.008024s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.008974s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007979s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007938s
+multi-thread mergeSort with CUTOFF 33 sort 100000 int costs 0.007903s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.006941s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.006985s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.006990s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.007057s
+modified mergeSort with CUTOFF 33 sort 100000 int costs 0.007979s
