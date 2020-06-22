@@ -27,7 +27,11 @@
 #include <winuser.h>
 #include <stdbool.h>
 
+#include "calc.h"
 #include "cJSON.h"
+#include "polynomial.h"
+
+#include "linkedList.h"
 
 #define BUTTON_NUMBER1 42
 
@@ -49,6 +53,7 @@ typedef struct layout {
     double winWidth, winHeight;
     double btn_prop, expr_prop, result_prop;
     int btn_font_size, expr_font_size, result_font_size;
+    string fontname;
     int column1, row1, column2, row2;
 
     calcMode mode;
@@ -78,6 +83,7 @@ void Main() {
     InitGraphics();
     SetPenSize(2);
     SetPenColor("Black");
+    SetFont(calculatorLayout.fontname);
     update();
     registerMouseEvent(MouseEventProcess);
 }
@@ -180,7 +186,7 @@ void update(void) {
 
         SaveGraphicsState();
         SetPointSize(calculatorLayout.btn_font_size);
-        double corner_lu_x = 0.35 * btn_width, corner_lu_y = total_btn_height - 0.65 * btn_height;
+        double corner_lu_x = 0.30 * btn_width, corner_lu_y = total_btn_height - 0.70 * btn_height;
         for (int i = 0; i < BUTTON_NUMBER1; ++i) {
             MovePen(corner_lu_x + (i % calculatorLayout.column1) * btn_width,
                     corner_lu_y - (i / calculatorLayout.column1) * btn_height);
@@ -247,6 +253,8 @@ void initLayout(void) {
         cJSON_GetObjectItem(cJSON_GetObjectItem(layout_data, "font"), "expr")->valueint;
     calculatorLayout.result_font_size =
         cJSON_GetObjectItem(cJSON_GetObjectItem(layout_data, "font"), "result")->valueint;
+    calculatorLayout.fontname = CopyString(
+        cJSON_GetObjectItem(cJSON_GetObjectItem(layout_data, "font"), "name")->valuestring);
 
     cJSON *columnTable = cJSON_GetObjectItem(layout_data, "column");
     calculatorLayout.column1 = cJSON_GetArrayItem(columnTable, 0)->valueint;
@@ -278,7 +286,8 @@ void initLayout(void) {
                 CopyString(cJSON_GetObjectItem(tempNode, "display")->valuestring);
             calculatorLayout.buttonTable1[pos].output =
                 CopyString(cJSON_GetObjectItem(tempNode, "output")->valuestring);
-            calculatorLayout.buttonTable2[pos].execute = generalButtonExec;
+            calculatorLayout.buttonTable1[pos].execute =
+                generalButtonExec; // 草.. 同一个地方跌倒两次
             pos++;
 
         } else {
@@ -286,7 +295,8 @@ void initLayout(void) {
                 CopyString(cJSON_GetObjectItem(tempNode, "display")->valuestring);
             calculatorLayout.buttonTable1[pos].output =
                 CopyString(cJSON_GetObjectItem(tempNode, "display")->valuestring);
-            calculatorLayout.buttonTable1[pos].execute = generalButtonExec; // 写成Table2了，debug了一个多小时（
+            calculatorLayout.buttonTable1[pos].execute =
+                generalButtonExec; // 写成Table2了，debug了一个多小时（
             pos++;
         }
     }
@@ -346,7 +356,7 @@ static void memUse(buttonT *this) {
     int len = strlen(numChar);
     calculatorLayout.expr_len += len;
     string temp = calculatorLayout.expr;
-    calculatorLayout.expr = Concat(temp, this->output);
+    calculatorLayout.expr = Concat(temp, numChar);
     free(numChar);
 }
 
@@ -374,13 +384,93 @@ static void convertMode(buttonT *this) {
 }
 
 static void arithCalc(buttonT *this) {
-    // do nothing
+    double result;
+    Calc(calculatorLayout.expr, &result);
+    string temp = calculatorLayout.res;
+    calculatorLayout.res = RealToString(result);
+    free(temp);
+    clearExpr(this);
 }
 
-static void multi_poly(buttonT *this) {}
+static linkedlistADT poly1, poly2;
 
-static void add_poly(buttonT *this) {}
+static int which_poly = 1;
 
-static void sub_poly(buttonT *this) {}
+static void multi_poly(buttonT *this) {
+    string format = FormatPolynomial(calculatorLayout.expr);
+    if (which_poly == 1) {
+        poly1 = CreatePolynomial(format);
+    } else {
+        poly2 = CreatePolynomial(format);
+    }
+    which_poly = 3 - which_poly; // switch between 1 and 2
+    if (which_poly == 1) {
+        linkedlistADT res = MultiplyPolynomial(poly1, poly2);
+        string temp = calculatorLayout.res;
+        calculatorLayout.res = PolynomialToString(res);
+        free(temp);
+        FreeLinkedList(poly1);
+        FreeLinkedList(poly2);
+        poly1 = res;
+        which_poly = 2;
+    }
+    clearExpr(this);
+}
 
-static void polyCalc(buttonT *this) {}
+static void add_poly(buttonT *this) {
+    string format = FormatPolynomial(calculatorLayout.expr);
+    if (which_poly == 1) {
+        poly1 = CreatePolynomial(format);
+    } else {
+        poly2 = CreatePolynomial(format);
+    }
+    which_poly = 3 - which_poly; // switch between 1 and 2
+    if (which_poly == 1) {
+        linkedlistADT res = AddPolynomial(poly1, poly2);
+        string temp = calculatorLayout.res;
+        calculatorLayout.res = PolynomialToString(res);
+        free(temp);
+        FreeLinkedList(poly1);
+        FreeLinkedList(poly2);
+        poly1 = res;
+        which_poly = 2;
+    }
+    clearExpr(this);
+}
+
+static void sub_poly(buttonT *this) {
+    string format = FormatPolynomial(calculatorLayout.expr);
+    if (which_poly == 1) {
+        poly1 = CreatePolynomial(format);
+    } else {
+        poly2 = CreatePolynomial(format);
+    }
+    which_poly = 3 - which_poly; // switch between 1 and 2
+    if (which_poly == 1) {
+        linkedlistADT res = SubPolynomial(poly1, poly2);
+        string temp = calculatorLayout.res;
+        calculatorLayout.res = PolynomialToString(res);
+        free(temp);
+        FreeLinkedList(poly1);
+        FreeLinkedList(poly2);
+        poly1 = res;
+        which_poly = 2;
+    }
+    clearExpr(this);
+}
+
+static void polyCalc(buttonT *this) {
+    if (which_poly == 2) {
+        string format = FormatPolynomial(calculatorLayout.expr);
+        poly2 = CreatePolynomial(format);
+        linkedlistADT res = SubPolynomial(poly1, poly2);
+        string temp = calculatorLayout.res;
+        calculatorLayout.res = PolynomialToString(res);
+        free(temp);
+        FreeLinkedList(poly1);
+        FreeLinkedList(poly2);
+        FreeLinkedList(res);
+        which_poly = 1;
+    }
+    clearExpr(this);
+}

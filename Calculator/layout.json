@@ -1,5 +1,6 @@
 {
     "winTitle": "GUI¼ÆËãÆ÷",
+    
     "winWidth": 8.0,
     "winHeight": 12.0,
     "column": [
@@ -16,8 +17,9 @@
         "result": 0.25
     },
     "font": {
+        "name": "Arial",
         "btn": 22,
-        "expr": 40,
+        "expr": 30,
         "result": 70
     },
     "button1": [

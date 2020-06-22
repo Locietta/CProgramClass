@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 #include "genlib.h"
 #include "simpio.h"
 #include "strlib.h"
@@ -232,12 +233,12 @@ string PolynomialToString(linkedlistADT head) {
             if (nodeptr == NextNode(head, head)) { /*第一项不输出+号*/
                 sprintf(temp, "%g", obj->coeff);
                 pos += StringLength(temp);
-                Concat(buffer, temp);
+                strcat(buffer, temp);
                 buffer[pos] = '\0';
             } else {
                 sprintf(temp, "%+g", obj->coeff);
                 pos += StringLength(temp);
-                Concat(buffer, temp);
+                strcat(buffer, temp);
                 buffer[pos] = '\0';
             }
         }
@@ -256,12 +257,12 @@ string PolynomialToString(linkedlistADT head) {
             if (obj->power < 0) {
                 sprintf(temp, "x^(%g)", obj->power);
                 pos += StringLength(temp);
-                Concat(buffer, temp);
+                strcat(buffer, temp);
                 buffer[pos] = '\0';
             } else {
                 sprintf(temp, "x^%g", obj->power);
                 pos += StringLength(temp);
-                Concat(buffer, temp);
+                strcat(buffer, temp);
                 buffer[pos] = '\0';
             }
         }
