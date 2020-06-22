@@ -16,6 +16,7 @@
 #include "stack.h"
 #include "queue.h"
 #include "error.h"
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
@@ -86,7 +87,7 @@ static const char *functionFetcher(const char *expr, char *funcName);
 static int isFunction(char *name);
 
 #define isOperator(c)                                                                              \
-    (c == '+' || c == '-' || c == '/' || c == '¡Â' || c == '*' || c == '%' || c == '=' || c == '^')
+    (c == '+' || c == '-' || c == '/' || c == '*' || c == '%' || c == '=' || c == '^')
 
 #define isLeftBrac(c) (c == '(' || c == '{' || c == '[')
 
@@ -124,7 +125,6 @@ static int op_prior(const char *op) {
         case '^': return 4;
         case '*':
         case '/':
-        case '¡Â':
         case '%': return 3;
         case '+':
         case '-': return 2;
@@ -145,7 +145,6 @@ static int op_argnum(const char *op) {
         case '-':
         case '*':
         case '/':
-        case '¡Â':
         case '%':
         case '^':
         case '=': // here '=' means 'compare'
@@ -164,6 +163,16 @@ static int op_argnum(const char *op) {
             return 1;
         } else if (!strcmp(op, "pow")) {
             return 2;
+        } else if (!strcmp(op, "tan")) {
+            return 1;
+        } else if (!strcmp(op, "arcsin")) {
+            return 1;
+        } else if (!strcmp(op, "arccos")) {
+            return 1;
+        } else if (!strcmp(op, "arctan")) {
+            return 1;
+        } else if (!strcmp(op, "abs")) {
+            return 1;
         } else {
             return -2; // unknown function
         }
@@ -186,7 +195,6 @@ static ERROR_FLAG calcSingle(char *op, double num[], double *result) {
         case '-': *result = num[0] - num[1]; break;
         case '*': *result = num[0] * num[1]; break;
         case '/':
-        case '¡Â':
             if (num[1]) {
                 *result = num[0] / num[1];
             } else {
@@ -220,6 +228,16 @@ static ERROR_FLAG calcSingle(char *op, double num[], double *result) {
             *result = exp(num[0]);
         } else if (!strcmp(op, "pow")) {
             *result = pow(num[0], num[1]);
+        } else if (!strcmp(op, "tan")) {
+            *result = tan(num[0]);
+        } else if (!strcmp(op, "arcsin")) {
+            *result = asin(num[0]);
+        } else if (!strcmp(op, "arccos")) {
+            *result = acos(num[0]);
+        } else if (!strcmp(op, "arctan")) {
+            *result = atan(num[0]);
+        } else if (!strcmp(op, "abs")) {
+            *result = fabs(num[0]);
         }
         break;
     }
@@ -324,7 +342,9 @@ static const char *numberFetcher(const char *expr, double *result, char *number)
 
 static int isFunction(char *name) {
     return !(strcmp(name, "sin") && strcmp(name, "cos") && strcmp(name, "ln") &&
-             strcmp(name, "exp") && strcmp(name, "pow"));
+             strcmp(name, "exp") && strcmp(name, "pow") && strcmp(name, "tan") &&
+             strcmp(name, "arcsin") && strcmp(name, "arccos") && strcmp(name, "arctan") &&
+             strcmp(name, "abs"));
 }
 
 static const char *functionFetcher(const char *expr, char *funcName) {
