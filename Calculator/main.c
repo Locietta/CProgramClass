@@ -286,7 +286,7 @@ void initLayout(void) {
                 CopyString(cJSON_GetObjectItem(tempNode, "display")->valuestring);
             calculatorLayout.buttonTable1[pos].output =
                 CopyString(cJSON_GetObjectItem(tempNode, "display")->valuestring);
-            calculatorLayout.buttonTable2[pos].execute = generalButtonExec;
+            calculatorLayout.buttonTable1[pos].execute = generalButtonExec; // 写成Table2了，debug了一个多小时（
             pos++;
         }
     }
