@@ -38,7 +38,7 @@ void CharEventProcess(char c);
 void TimerEventProcess(int timerID);
 
 void Main() {
-    SetWindowTitle("ÊäÈë¿ò");
+    SetWindowTitle("ï¿½ï¿½ï¿½ï¿½ï¿½");
     SetWindowSize(winWidth, winHeight);
     InitGraphics();
     registerKeyboardEvent(KeyboardEventProcess);

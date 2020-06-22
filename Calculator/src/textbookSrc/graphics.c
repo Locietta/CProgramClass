@@ -7,21 +7,20 @@
  * for the Borland/Windows platform.
  */
 
+#include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
 #include <conio.h>
-#include <windows.h>
 #include <time.h>
 #include <wincon.h>
-#include <Windows.h>
 
+#include "extgraph.h"
 #include "genlib.h"
 #include "gcalloc.h"
 #include "strlib.h"
-#include "extgraph.h"
 
 /*
  * Parameters

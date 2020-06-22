@@ -1,0 +1,192 @@
+{
+    "winTitle": "GUI¼ÆËãÆ÷",
+    "winWidth": 8.0,
+    "winHeight": 12.0,
+    "column": [
+        6,
+        5
+    ],
+    "row": [
+        7,
+        4
+    ],
+    "propotion": {
+        "btn": 0.6,
+        "expr": 0.15,
+        "result": 0.25
+    },
+    "font": {
+        "btn": 22,
+        "expr": 40,
+        "result": 70
+    },
+    "button1": [
+        {
+            "display": "x"
+        },
+        {
+            "display": "("
+        },
+        {
+            "display": ")"
+        },
+        {
+            "display": "abs",
+            "output": "abs("
+        },
+        {
+            "display": "n!",
+            "output": "!"
+        },
+        {
+            "display": "exp",
+            "output": "exp("
+        },
+        {
+            "display": "ln",
+            "output": "ln("
+        },
+        {
+            "display": "^"
+        },
+        {
+            "display": "¡Ì",
+            "output": "^0.5"
+        },
+        {
+            "display": "Mod",
+            "output": "%"
+        },
+        {
+            "display": "¡Â",
+            "output": "/"
+        },
+        {
+            "display": "sin",
+            "output": "sin("
+        },
+        {
+            "display": "cos",
+            "output": "cos("
+        },
+        {
+            "display": "7"
+        },
+        {
+            "display": "8"
+        },
+        {
+            "display": "9"
+        },
+        {
+            "display": "X",
+            "output": "*"
+        },
+        {
+            "display": "tan",
+            "output": "tan("
+        },
+        {
+            "display": "sin-1",
+            "output": "arcsin("
+        },
+        {
+            "display": "4"
+        },
+        {
+            "display": "5"
+        },
+        {
+            "display": "6"
+        },
+        {
+            "display": "-"
+        },
+        {
+            "display": "cos-1",
+            "output": "arccos("
+        },
+        {
+            "display": "tan-1",
+            "output": "arctan("
+        },
+        {
+            "display": "1"
+        },
+        {
+            "display": "2"
+        },
+        {
+            "display": "3"
+        },
+        {
+            "display": "+"
+        },
+        {
+            "display": "¦Ð",
+            "output": "3.1415926536"
+        },
+        {
+            "display": "e",
+            "output": "2.71828"
+        },
+        {
+            "display": "x10^n",
+            "output": "*10^"
+        },
+        {
+            "display": "0"
+        },
+        {
+            "display": "."
+        }
+    ],
+    "button2": [
+        {
+            "display": "^"
+        },
+        {
+            "display": "7"
+        },
+        {
+            "display": "8"
+        },
+        {
+            "display": "9"
+        },
+        {
+            "display": "var:x",
+            "output": "x"
+        },
+        {
+            "display": "+"
+        },
+        {
+            "display": "4"
+        },
+        {
+            "display": "5"
+        },
+        {
+            "display": "6"
+        },
+        {
+            "display": "0"
+        },
+        {
+            "display": "-"
+        },
+        {
+            "display": "1"
+        },
+        {
+            "display": "2"
+        },
+        {
+            "display": "3"
+        },
+        {
+            "display": "."
+        }
+    ]
+}
