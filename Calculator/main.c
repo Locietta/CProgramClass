@@ -396,22 +396,37 @@ static linkedlistADT poly1, poly2;
 
 static int which_poly = 1;
 
+typedef enum poly_calc_type {NOTHING, ADD, SUB, MULTI } poly_calc_type;
+poly_calc_type poly_operation;
+
+typedef linkedlistADT (*polyOperationT)(linkedlistADT, linkedlistADT);
+polyOperationT operationSelector(poly_calc_type operation_type) { // 返回值是一个函数指针
+    switch (operation_type) {
+    case ADD: return AddPolynomial; break;
+    case SUB: return SubPolynomial; break;
+    case MULTI: return MultiplyPolynomial; break;
+    default: return NULL; break;
+    }
+}
+
 static void multi_poly(buttonT *this) {
     string format = FormatPolynomial(calculatorLayout.expr);
     if (which_poly == 1) {
         poly1 = CreatePolynomial(format);
+        poly_operation = MULTI;
     } else {
         poly2 = CreatePolynomial(format);
     }
     which_poly = 3 - which_poly; // switch between 1 and 2
     if (which_poly == 1) {
-        linkedlistADT res = MultiplyPolynomial(poly1, poly2);
+        linkedlistADT res = operationSelector(poly_operation)(poly1, poly2); 
         string temp = calculatorLayout.res;
         calculatorLayout.res = PolynomialToString(res);
         free(temp);
         FreeLinkedList(poly1);
         FreeLinkedList(poly2);
         poly1 = res;
+        poly_operation = MULTI;
         which_poly = 2;
     }
     clearExpr(this);
@@ -421,18 +436,20 @@ static void add_poly(buttonT *this) {
     string format = FormatPolynomial(calculatorLayout.expr);
     if (which_poly == 1) {
         poly1 = CreatePolynomial(format);
+        poly_operation = ADD;
     } else {
         poly2 = CreatePolynomial(format);
     }
     which_poly = 3 - which_poly; // switch between 1 and 2
     if (which_poly == 1) {
-        linkedlistADT res = AddPolynomial(poly1, poly2);
+        linkedlistADT res = operationSelector(poly_operation)(poly1, poly2); 
         string temp = calculatorLayout.res;
         calculatorLayout.res = PolynomialToString(res);
         free(temp);
         FreeLinkedList(poly1);
         FreeLinkedList(poly2);
         poly1 = res;
+        poly_operation = ADD;
         which_poly = 2;
     }
     clearExpr(this);
@@ -442,18 +459,20 @@ static void sub_poly(buttonT *this) {
     string format = FormatPolynomial(calculatorLayout.expr);
     if (which_poly == 1) {
         poly1 = CreatePolynomial(format);
+        poly_operation = SUB;
     } else {
         poly2 = CreatePolynomial(format);
     }
     which_poly = 3 - which_poly; // switch between 1 and 2
     if (which_poly == 1) {
-        linkedlistADT res = SubPolynomial(poly1, poly2);
+        linkedlistADT res = operationSelector(poly_operation)(poly1, poly2); 
         string temp = calculatorLayout.res;
         calculatorLayout.res = PolynomialToString(res);
         free(temp);
         FreeLinkedList(poly1);
         FreeLinkedList(poly2);
         poly1 = res;
+        poly_operation = SUB;
         which_poly = 2;
     }
     clearExpr(this);
@@ -463,13 +482,13 @@ static void polyCalc(buttonT *this) {
     if (which_poly == 2) {
         string format = FormatPolynomial(calculatorLayout.expr);
         poly2 = CreatePolynomial(format);
-        linkedlistADT res = SubPolynomial(poly1, poly2);
+        linkedlistADT res = operationSelector(poly_operation)(poly1, poly2);
         string temp = calculatorLayout.res;
         calculatorLayout.res = PolynomialToString(res);
         free(temp);
         FreeLinkedList(poly1);
         FreeLinkedList(poly2);
-        FreeLinkedList(res);
+        // FreeLinkedList(res); // ???
         which_poly = 1;
     }
     clearExpr(this);
