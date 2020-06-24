@@ -37,64 +37,104 @@
 
 #define BUTTON_NUMBER2 20
 
+/**
+ * @brief 按钮结构: buttonT
+ * 
+ */
 typedef struct buttonT buttonT;
-
 struct buttonT {
-    char *display;
-    char *output;
+    char *display; //< 按钮显示的文本
+    char *output;  //< 非功能键的情况下,按下按钮会向输出缓冲添加的文本
 
-    void (*execute)(buttonT *this);
+    void (*execute)(buttonT *this); //< 决定按钮按下时的操作,非功能键其值统一为generalButtonExec
 };
 
+/**
+ * @brief 运算模式标识枚举: calcMode
+ * 
+ */
 typedef enum calcMode { arithmetic, polynomial } calcMode;
 
+/**
+ * @brief 布局配置结构: layout
+ * @details 包含了计算器布局的几乎所有信息
+ */
 typedef struct layout {
-    char winTitle[36];
-    double winWidth, winHeight;
-    double btn_prop, expr_prop, result_prop;
-    int btn_font_size, expr_font_size, result_font_size;
-    string fontname;
-    int column1, row1, column2, row2;
+    char winTitle[36]; //< 窗口的标题
+    double winWidth, winHeight; //< 窗口的长宽
+    double btn_prop, expr_prop, result_prop; //< 按钮,输入表达式,输出结果三个区域所占比例
+    int btn_font_size, expr_font_size, result_font_size; //< 三个区域分别所用的字体大小
+    string fontname; //< 使用的字体
+    int column1, row1; //< 算术模式下,按钮的行列数 
+    int column2, row2; //< 多项式模式下,按钮的行列数
 
-    calcMode mode;
+    calcMode mode; //< 标识当前是算术模式还是多项式模式
 
-    string expr, res;
-    int expr_len;
+    string expr; //< 输入表达式缓冲区
+    string res; //< 输出结果缓冲区
+    int expr_len; //< 素如表达式的长度
 
-    buttonT buttonTable1[BUTTON_NUMBER1], buttonTable2[BUTTON_NUMBER2];
+    buttonT buttonTable1[BUTTON_NUMBER1], buttonTable2[BUTTON_NUMBER2]; // 算术模式和多项式模式下的按钮数组
 } layout;
 
-extern layout calculatorLayout;
 
+/**
+ * @brief 静态全局变量 calculatorLayout
+ * @details 从.json读取布局信息之后储存在这里
+ * 
+ */
+static layout calculatorLayout;
+
+/**
+ * @brief 界面更新函数: void update(void)
+ * @details 根据calculatorLayout全局变量的状态刷新界面
+ */
 void update(void);
 
+/**
+ * @brief 配置初始化函数: void initLayout(void)
+ * @details 从layout.json配置文件中读取界面布局信息
+ */
 void initLayout(void);
 
-layout calculatorLayout;
-
+/**
+ * @brief 鼠标回调函数 MouseEventProcess()
+ * 
+ */
 void MouseEventProcess(int x, int y, int button, int event);
 
+/**
+ * @brief 按钮编号获取器 buttonOrderFetcher()
+ * 
+ * @param x[in] 鼠标横坐标
+ * @param y[in] 鼠标纵坐标
+ * @return int 返回相应的按钮序号
+ */
 int buttonOrderFetcher(double x, double y);
 
 void Main() {
-    initLayout();
-    SetWindowTitle(calculatorLayout.winTitle);
+    initLayout(); //< 读入配置
+
+    /* 根据配置设置窗口属性 */
+    SetWindowTitle(calculatorLayout.winTitle); 
     SetWindowSize(calculatorLayout.winWidth, calculatorLayout.winHeight);
     InitGraphics();
     SetPenSize(2);
     SetPenColor("Black");
     SetFont(calculatorLayout.fontname);
     update();
+
+    /* 注册鼠标回调函数 */
     registerMouseEvent(MouseEventProcess);
 }
 
 void MouseEventProcess(int x, int y, int button, int event) {
-    double mx = ScaleXInches(x), my = ScaleYInches(y);
-    double total_btn_height = calculatorLayout.btn_prop * calculatorLayout.winHeight;
+    double mx = ScaleXInches(x), my = ScaleYInches(y); //< Pixel转inches
+    double total_btn_height = calculatorLayout.btn_prop * calculatorLayout.winHeight; //< 按钮区域的总高度
     switch (event) {
     case BUTTON_DOWN:
         if (button == LEFT_BUTTON) {
-            if (my < total_btn_height) {
+            if (my < total_btn_height) { //< 在按钮区域内
                 if (calculatorLayout.mode == arithmetic) {
                     buttonT pressed_button =
                         calculatorLayout.buttonTable1[buttonOrderFetcher(mx, my)];
@@ -136,6 +176,12 @@ int buttonOrderFetcher(double x, double y) {
     }
 }
 
+/**
+ * @brief 按钮的操作函数
+ * @details buttonT .execute()成员的所有可能值
+ * @{
+ */
+
 static void generalButtonExec(buttonT *this);
 static void memAdd(buttonT *this);
 static void memSub(buttonT *this);
@@ -149,6 +195,11 @@ static void multi_poly(buttonT *this);
 static void add_poly(buttonT *this);
 static void sub_poly(buttonT *this);
 static void polyCalc(buttonT *this);
+
+/**
+ * @}
+ * 
+ */
 
 void update(void) {
     SetEraseMode(true); // 清屏
@@ -392,14 +443,33 @@ static void arithCalc(buttonT *this) {
     clearExpr(this);
 }
 
+
+/**
+ * @brief 静态全局变量 多项式缓冲区
+ * 
+ */
 static linkedlistADT poly1, poly2;
 
+
+/**
+ * @brief 标识现在正在读入哪一个多项式(poly1/poly2)
+ * 
+ */
 static int which_poly = 1;
 
+/**
+ * @brief 枚举: 多项式操作的种类 poly_calc_type
+ * 
+ */
 typedef enum poly_calc_type {NOTHING, ADD, SUB, MULTI } poly_calc_type;
 poly_calc_type poly_operation;
 
+/**
+ * @brief 三个多项式运算函数有相同的类型
+ * 
+ */
 typedef linkedlistADT (*polyOperationT)(linkedlistADT, linkedlistADT);
+
 polyOperationT operationSelector(poly_calc_type operation_type) { // 返回值是一个函数指针
     switch (operation_type) {
     case ADD: return AddPolynomial; break;
@@ -419,7 +489,7 @@ static void multi_poly(buttonT *this) {
     }
     which_poly = 3 - which_poly; // switch between 1 and 2
     if (which_poly == 1) {
-        linkedlistADT res = operationSelector(poly_operation)(poly1, poly2); 
+        linkedlistADT res = operationSelector(poly_operation)(poly1, poly2); // operationSelector(poly_operation)是一个函数指针(函数名)
         string temp = calculatorLayout.res;
         calculatorLayout.res = PolynomialToString(res);
         free(temp);
@@ -488,7 +558,7 @@ static void polyCalc(buttonT *this) {
         free(temp);
         FreeLinkedList(poly1);
         FreeLinkedList(poly2);
-        // FreeLinkedList(res); // ???
+        // FreeLinkedList(res); // ??? 内存泄漏和闪退二选一
         which_poly = 1;
     }
     clearExpr(this);

@@ -1,4 +1,12 @@
-
+/**
+ * @file polynomial.c
+ * @author Locietta (https://github.com/Locietta)
+ * @brief 
+ * @version 0.1
+ * @date 2020-06-22 21:22
+ * 
+ * 
+ */
 #include "polynomial.h"
 
 #include <stdio.h>
