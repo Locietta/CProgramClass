@@ -1,36 +1,30 @@
-#include "linkedList.h"
 #include <stdio.h>
+#include "list.h"
 
-static int isBigger(void *data1, void *data2) {
-    return (*((int *) data1) > *((int *) data2));
-}
-
-static void nodePrint(Node *node) {
-    printf("%d ", *((int *) node->data));
-}
+#define INPUT_LINES 2
 
 int main(void) {
-    int temp;
-    List l1 = listInit(), l2 = listInit();
+    list S3 = newlist(int);
+    int lines = 0, temp;
     while (scanf("%d", &temp) != EOF) {
         if (temp == -1) {
-            break;
+            if (++lines == INPUT_LINES) 
+                break;
+            else 
+                continue; 
         }
-        l1->tailInsert(l1, &temp, sizeof(temp));
+        S3.push_back(&temp);
     }
-    while (scanf("%d", &temp) != EOF) {
-        if (temp == -1) {
-            break;
+    S3.setcmp(_int_comparer_).sort();
+
+    if (S3.empty()) {
+        puts("NULL");
+    } else {
+        printf("%d", *(int *) S3.front());
+        for (iterator it = next_iterator(S3.begin()); it != S3.end(); it = next_iterator(it)) {
+            printf(" %d", deref_iterator(int, it));
         }
-        l2->tailInsert(l2, &temp, sizeof(temp));
     }
-    l1->merge(l1, l2);
-    l2->destory(l2);
-    l1->sort(l1, isBigger, 1);
 
-    l1->foreach (l1, nodePrint);
-    putchar('\n');
-
-    l1->destory(l1);
     return 0;
 }
